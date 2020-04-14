@@ -11,9 +11,10 @@ import { AuthService } from '../auth.service';
 export class MainComponent implements OnInit {
   donations  = [];
   services = [];
+  showDialog : boolean = false ;
   filteredDonations = [];
   filteredServices = [];
-
+  currentItem ;
   constructor(private router:Router,private auth:AuthService) { }
   fileName= 'ExcelSheet.xlsx';
   deconnexion(){
@@ -42,7 +43,7 @@ export class MainComponent implements OnInit {
        let allData = data.val();
             let keys = Object.keys(data.val());
        for(let i=0;i<keys.length;i++){
-         this.donations.push(allData[keys[i]]);
+         this.donations.push({data : allData[keys[i]] , key : keys[i] });
        }
        this.filteredDonations = [...this.donations];
        console.log(this.donations);
@@ -55,7 +56,7 @@ export class MainComponent implements OnInit {
        let allData = data.val();
             let keys = Object.keys(data.val());
        for(let i=0;i<keys.length;i++){
-         this.services.push(allData[keys[i]]);
+         this.services.push({data : allData[keys[i]] , key : keys[i] });
        }
        this.filteredServices= [...this.services];
        console.log(this.services);
@@ -73,5 +74,15 @@ export class MainComponent implements OnInit {
   }
   filterName(e){
     this.filteredServices = this.services.filter(element=>element.user.indexOf(e.target.value)!=-1);
+  }
+  supprimer(){
+   firebase.database().ref("services/"+this.currentItem.key).remove().then(
+    ()=>this.showDialog=false,
+    ()=>alert("un problem est survenu. veuillez réessayer")
+   );
+  }
+  saveItem(item){
+    this.currentItem  = item ;
+    this.showDialog = true
   }
 }

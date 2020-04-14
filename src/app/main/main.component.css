@@ -36,3 +36,28 @@ text-align:end;
   margin: 1%;
   text-align:start;
   }
+.dialog{
+  position: fixed;
+  top: 50%;
+  padding: 4%;
+  right: 50%;
+  transform: translate(50%,-50%);
+  background-color: white;
+  box-shadow: -1px -2px 5px black;
+  border-radius: 10px;
+  margin: auto;
+  height: 30vh;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+}
+.dialog-but{
+  width: 60%;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 4%;
+  align-self: flex-end;
+}
+

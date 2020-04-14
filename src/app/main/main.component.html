@@ -16,8 +16,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of filteredDonations">
-        <td>{{item.donator}}</td>
-        <td>{{item.donation}}</td>
+        <td>{{item.data.donator}}</td>
+        <td>{{item.data.donation}}</td>
       </tr>
     </tbody>
   </table>
@@ -42,6 +42,7 @@
   <table id="excel-table-2" class="table">
     <thead>
       <tr>
+        <th scope="col"></th>
         <th scope="col">العنوان</th>
         <th scope="col">التاريخ</th>
         <th scope="col"> المنطقة</th>
@@ -54,13 +55,14 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of filteredServices">
-        <td>{{item.adresse}}</td>
-        <td>{{item.date}}</td>
-        <td>{{item.emplacement}}</td>
-        <td>{{item.remarque}}</td>
-        <td>{{item.service}}</td>
-        <td>{{item.tel}}</td>
-        <td>{{item.user}}</td>
+        <td><button (click)="saveItem(item)" class="btn btn-danger">supprimer</button></td>
+        <td>{{item.data.adresse}}</td>
+        <td>{{item.data.date}}</td>
+        <td>{{item.data.emplacement}}</td>
+        <td>{{item.data.remarque}}</td>
+        <td>{{item.data.service}}</td>
+        <td>{{item.data.tel}}</td>
+        <td>{{item.data.user}}</td>
       </tr>
     </tbody>
   </table>
@@ -74,5 +76,12 @@
     Exporter En excel
   </button>
 
+</div>
+<div *ngIf="showDialog" class="dialog">
+  <p class="dialog-text"> Voulez vous vraiment Supprimer Ce Service ?</p>
+  <div class="dialog-but">
+    <button class="btn btn-danger" (click)="supprimer()">Confirmer</button>
+    <button class="btn btn-primary" (click)="showDialog=false">Annuler</button>
+  </div>
 </div>
 </div>
